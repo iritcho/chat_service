@@ -1,28 +1,34 @@
 import tornado.ioloop
 import tornado.web
-
-class Application(tornado.web.Application):
-    def __init__(self):
-        handlers = [
-            (r"/talk", MainHandler),
-        ]
+import tornado.websocket
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        string = self.get_argument('string', '')
-        self.render('talk.html', string='')
+        self.render("talk.html")
 
-    def post(self):
-        string = self.get_argument('string', '')
-        self.render('talk.html', string=string)
+class TalkHandler(tornado.websocket.WebSocketHandler):
+    clients = []
 
-application = tornado.web.Application([
-    (r"/talk", MainHandler),
-    ],
-    template_path='templates',
-    static_path='css',
-)
+    def open(self):
+        if self not in TalkHandler.clients:
+            TalkHandler.clients.append(self)
+
+    def on_message(self, message):
+         for cl in TalkHandler.clients:
+             cl.write_message(message)
+
+    def on_close(self):
+        if self in TalkHandler.clients:
+            TalkHandler.clients.remove(self)
 
 if __name__ == "__main__":
+    application = tornado.web.Application([
+        (r"/talk", MainHandler),
+        (r"/ws", TalkHandler),
+        ],
+        template_path="templates",
+        static_path="static"
+    )
     application.listen(8888)
-    tornado.ioloop.IOLoop.instance().start()
+    io_loop = tornado.ioloop.IOLoop.current()
+    io_loop.start()

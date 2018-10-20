@@ -3,15 +3,16 @@
   <head>
     <meta charset="utf-8">
     <title>Talk</title>
-    <link rel="stylesheet" href="{{ static_url('style.css') }}" />
+    <link rel="stylesheet" href="{{ static_url('css/style.css') }}" />
+    <script type="text/javascript" src="{{ static_url('js/websocket.js') }}"></script>
   </head>
   <body>
     <div class="output">
-      <p id="display">{{ string }}</p>
+      <div id="msgbox"></div>
     </div>
-    <form action="/talk" method="post">
-      <input type="text" id="input" name="string">
-      <button type="submit">S</button>
-    </form>
+    <div class="input">
+      <input type="text" id="msg">
+      <button type="button" id="send">S</button>
+    </div>
   </body>
 </html>
