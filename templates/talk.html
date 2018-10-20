@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <title>Talk</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{ static_url('style.css') }}" />
   </head>
   <body>
     <div class="output">
-      <div id="display"></div>
+      <p id="display">{{ string }}</p>
     </div>
-    <form action="/add" method="post">
+    <form action="/talk" method="post">
       <input type="text" id="input" name="string">
       <button type="submit">S</button>
     </form>
