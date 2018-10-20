@@ -1,0 +1,13 @@
+p {
+  color: #00a968;
+}
+
+button {
+  width: 21px;
+  height: 21px;
+  background: #00a968;
+  color: #fff;
+  /* border-color: #00a968; */
+  border-style: none;
+  border-radius: 50%;
+}
