@@ -1,5 +1,5 @@
 const KEY_CODE_ENTER = 13;
-const STRING_ENMPTY = "";
+const STRING_EMPTY = "";
 
 let ws = new WebSocket("ws://localhost:8888/ws");
 ws.onmessage = function(evt) {
@@ -9,10 +9,10 @@ ws.onmessage = function(evt) {
 };
 
 function sendMessage()  {
-  if (document.getElementById('msg').value !== STRING_ENMPTY) {
+  if (document.getElementById('msg').value !== STRING_EMPTY) {
     let m = document.getElementById('msg');
     ws.send(m.value);
-    document.getElementById('msg').value = STRING_ENMPTY;
+    document.getElementById('msg').value = STRING_EMPTY;
   }
 }
 
